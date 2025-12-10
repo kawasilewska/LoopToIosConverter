@@ -15,13 +15,18 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+
       - name: Install .NET WebAssembly Tools
         run: dotnet workload install wasm-tools
 
-      - name: Publish
-        run: dotnet publish LoopToIosConverter.sln -c:Release -o:publish -p:GHPages=true
+      - name: Publish Blazor WASM
+        run: dotnet publish ./LoopToIosConverter/LoopToIosConverter.csproj \
+              --configuration Release \
+              --output publish \
+              -p:GHPages=true \
+              -p:UseAppHost=false
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
