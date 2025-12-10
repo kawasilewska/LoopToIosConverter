@@ -20,7 +20,7 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Publish Blazor WASM
-        run: dotnet publish LoopToIosConverter.sln -c:Release -o:publish -p:GHPages=true
+        run: dotnet publish LoopToIosConverter.sln --configuration Release --output publish -p:GHPages=true -p:UseAppHost=false
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
